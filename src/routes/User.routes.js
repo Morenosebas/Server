@@ -1,25 +1,7 @@
 const router = require('express').Router();
 const passport = require('passport');
 const { getUser, getAllUsers, updateUser } = require('../controllers/userController.js');
-const { getProducts, getOneProduct, createProduct } = require('../controllers/productsController');
-const { getAllStore, createAccount, deleteStore, getStore } = require('../controllers/storeController')
-//rutas de productos
-router.route('/products')
-    .get(getProducts)
-router.get('/:storeid/products/:id', getOneProduct);
 
-router.post('/:id/addprod/', createProduct);
-router.delete('/:id/deletestore/', deleteStore);
-//rutas de  shops
-
-router.route('/shops')
-    .get(getAllStore)
-    .post(createAccount)
-
-router.get('/shops/:id', getStore)
-
-
-//rutas de sesion
 router.get('/users', getAllUsers)
 router.get('/user', isAuthenticated, getUser)
 router.put('/user/:userid', isAuthenticated, updateUser)
@@ -40,7 +22,7 @@ router.route('/signin')
     }))
     .get((req, res) => {
         res.json({
-            message: "Usuario o contraseÃ±a incorrectos."
+            message: "Usuario o contraseña incorrectos."
         })
     })
 

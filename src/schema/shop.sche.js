@@ -16,14 +16,26 @@ const ShopSchema = new Schema({
         ref: 'User',
         required: true
     },
+    description: {
+        type: String,
+        required: true,
+    },
+    image: {
+        filename: { type: String },
+        path: { type: String },
+        originalname: { type: String },
+        mimetype: { type: String },
+        size: { type: Number },
+    }
+    ,
     products: [{
         name: {
             type: String,
-            required: true
+            
         },
         description: {
             type: String,
-            required: true
+            
         },
         stock: {
             type: Number,
@@ -33,11 +45,24 @@ const ShopSchema = new Schema({
             type: Number,
             min: 0
         },
+        category: {
+            
+            type:String
+        },
+        img: {
+            type: String,
+            
+        },
         createdAt: {
             type: Date,
             default: Date.now
         }
     }],
+    category: {
+        required: true,
+        type: String
+    },
+    direccion: { required: true, type: String },
     createdAt: {
         type: Date,
         default: Date.now

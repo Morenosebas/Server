@@ -14,7 +14,9 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         trim: true,
-    }
+    },
+    store: { default: false, type: Boolean }
+
 }, { timestamps: true });
 
 UserSchema.methods.encryptPassword = (password) => {

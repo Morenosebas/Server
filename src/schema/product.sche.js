@@ -27,6 +27,17 @@ const ProductSchema = new Schema({
         ref: 'Shop',
         required: true
     },
+    category: {
+        required: true,
+        type: String
+    },
+    img: {
+        filename: { type: String },
+        path: { type: String },
+        originalname: { type: String },
+        mimetype: { type: String },
+        size: { type: Number },
+    },
     createdAt: {
         type: Date,
         default: Date.now
