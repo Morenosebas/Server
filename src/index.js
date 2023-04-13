@@ -87,3 +87,17 @@ function getLocalIPAddress() {
         }
     }
 }
+
+
+
+
+
+
+    //tareas para hacer en el server
+    //añadir el servidor https
+    //añadir validaciones a los datos
+    //usar JsonWebToken para mejorar la escalabilidad del proyecto
+    //añadir funcion que elimine las imagenes no optimizadas
+    //buscar la forma de crear una cdn para la data estatica
+    //investigar la implementacion de una bases de datos en memoria
+    

@@ -1,9 +1,57 @@
 const  Shop  = require('../schema/shop.sche');
 const  User  = require('../schema/user.sche');
-const  Product  = require('../schema/product.sche')
+const Product = require('../schema/product.sche')
+const fs = require('fs')
+const sharp = require('sharp')
+
 const ProductsController = {
 
 };
+
+const helperImgProduct = (filePath, fileName, size) => {
+    return sharp(filePath)
+        .resize(size)
+        .toFile(`./src/Image/optimize/Products/${fileName}.webp`)
+}
+
+
+
+ProductsController.createProduct = async function (req, res) {
+    try {
+        const { id } = req.params;
+        const store = await Shop.findById(id);
+        const { Nombre, descripcion, categoriaProduct, stock, price } = req.body;
+        helperImgProduct(req.file.path, `${Nombre.split(" ").join("_")}-product`, 200)
+        console.log("error no aqui:"+req.file.path)
+        if (store) {
+            const product = new Product({
+                name: Nombre,
+                description: descripcion,
+                stock: stock,
+                price: price,
+                category: categoriaProduct,
+                img: {
+                    filename: req.file.filename,
+                    path: `/optimize/Products/${Nombre.split(" ").join("_")}-product.webp`,
+                    originalname: req.file.originalname,
+                    mimetype: req.file.mimetype,
+                    size: req.file.size,
+                },
+                shop: store._id
+            });
+            await Shop.updateOne({ _id: store._id }, { $push: { products: product } });
+            await product.save()
+        } else {
+            res.status(404).json({ error: "not found" })
+        }
+    } catch (error) {
+        //fs.unlink(req.file.path, (err) => { err?console.error(err):console.log("Img eliminada") })
+        res.status(500).json({ message: error.message })
+    }
+
+}
+
+
 //esta funcion es para obtener uno de los productos
 ProductsController.getOneProduct = async (req, res) => {
     try {
@@ -40,27 +88,7 @@ ProductsController.getProducts = async (req, res) => {
 }
 
 
-ProductsController.createProduct = async function (req, res) {
-    try {
-        const { id } = req.params;
-        const store = await Shop.findById(id);
-        if (store) {
-            const product = new Product({
-                name: "Saborizante",
-                description: "Color Rojo con verde especializado",
-                stock: 322,
-                price: 232,
-                shop: store._id
-            });
-            await Shop.updateOne({ _id: store._id }, { $push: { products: product } });
-            await product.save()
-        } else {
-            res.status(404).json({ error: "not found" })
-        }
-    } catch (error) {
-        res.status(500).json({ error: "message.error" })
-    }
-}
+
 
 
 ProductsController.updateProduct = async function (req, res) {

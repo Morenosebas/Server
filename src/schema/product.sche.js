@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-//a este esquema falta definirle la categoria
 
 const ProductSchema = new Schema({
     name: {

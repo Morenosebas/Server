@@ -13,11 +13,11 @@ const storeController = {}
 
 storeController.createAccount = async function (req, res) {
     try {
-        console.log(req.file)
         const { name,descripcion,direccion,categoriaStore } = req.body;
         const userStore = await Shop.findOne({ name: name })
         const userSh = await User.findOne({ username: req.user?.username })
-        helperImgLogo(req.file.path,`${name.split(" ").join("_")}-logo`, 200)
+        helperImgLogo(req.file.path, `${name.split(" ").join("_")}-logo`, 200)
+        console.log(req.file.path)
         const createShop = new Shop({
             name: name,
             userBoss: userSh.id,

@@ -50,7 +50,11 @@ const ShopSchema = new Schema({
             type:String
         },
         img: {
-            type: String,
+            filename: { type: String },
+            path: { type: String },
+            originalname: { type: String },
+            mimetype: { type: String },
+            size: { type: Number },
             
         },
         createdAt: {

@@ -6,7 +6,7 @@ const multer = require('multer')
 
 const storageProducts = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, '../../Image/Products');
+        cb(null, './src/Image/Products');
     },
     filename: (req, file, cb) => {
         const ext = file.originalname.split('.').pop();
@@ -25,6 +25,6 @@ router.route('/:storeid/products/:id')
     .put(updateProduct)
     .delete(deleteProduct)
 
-router.post('/:id/addprod/', uploadProduct.single('image'),  createProduct);
+router.post('/:id/addprod', uploadProduct.single('image'),  createProduct);
 
 module.exports = router;
